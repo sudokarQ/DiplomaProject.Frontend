@@ -5,4 +5,37 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 id="result"></h2>
+    <button id="btn" value="Запрос">Запрос погода</button>
+    <button id="btn200" value="Запрос">Запрос 200</button>
+
+    <script>
+        const btn = document.getElementById("btn");
+        const result = document.getElementById("result");
+        btn.addEventListener("click", async () => {
+
+        try {
+                const response = await fetch("https://localhost:7161/WeatherForecast/");
+            if (response.ok) result.innerText = await response.text();
+        }
+        catch (e) {
+            result.innerText = e.message;
+        }
+        });
+    </script>
+
+    <script>
+        const btn200 = document.getElementById("btn200");
+        const result1 = document.getElementById("result");
+        btn.addEventListener("click", async () => {
+
+            try {
+                const response = await fetch("https://localhost:7161/Get200'/");
+                if (response.ok) result.innerText = await response.text();
+            }
+            catch (e) {
+                result.innerText = e.message;
+            }
+        });
+    </script>
 </div>
