@@ -1,0 +1,31 @@
+﻿@model List<ClientGetDto>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Birthday</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Adress</th>
+            <th>Company</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in ViewBag.Clients)
+        {
+            <tr>
+                <td>@client.Id</td>
+                <td>@client.Name</td>
+                <td>@client.Surname</td>
+                <td>@client.BirthdayDate</td>
+                <td>@client.PhoneNumber</td>
+                <td>@client.Email</td>
+                <td>@client.Adress</td>
+                <td>@client.CompanyName</td>
+            </tr>
+        }
+    </tbody>
+</table>
