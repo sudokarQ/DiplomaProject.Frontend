@@ -1,4 +1,4 @@
-﻿namespace DIplomaProject.Frontend.Models
+﻿namespace DIplomaProject.Frontend.Models.Client
 {
     public class ClientGetDto
     {
@@ -10,6 +10,5 @@
         public string Email { get; set; }
         public string? Adress { get; set; }
         public string? CompanyName { get; set; }
-        public Guid UserId { get; set; }
     }
 }

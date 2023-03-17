@@ -1,6 +1,8 @@
-﻿using DIplomaProject.Frontend.Models;
+﻿using DIplomaProject.Frontend.Helpers;
+using DIplomaProject.Frontend.Models.Client;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Newtonsoft.Json;  
+using System.Text;
 
 namespace DIplomaProject.Frontend.Controllers
 {
@@ -13,22 +15,41 @@ namespace DIplomaProject.Frontend.Controllers
 
         public async Task<IActionResult> GetClients()
         {
-            var apiUrl = "https://localhost:7161/GetAllClients";
-            using (var httpClient = new HttpClient())
+            var sender = new Sender();
+
+            var clients = await sender.GetAsync<ClientGetDto>("GetAllClients");
+
+            ViewBag.Clients = clients;
+
+            return View();
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(ClientPostDto client)
+        {
+            var apiUrl = "https://localhost:7161/CreateClient";
+
+            using var httpClient = new HttpClient();
+
+            var data = JsonConvert.SerializeObject(client);
+
+            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            //var response = httpClient.PostAsJsonAsync(apiUrl, content).Result.Content.ReadAsStringAsync();
+
+            var response = await httpClient.PostAsync(apiUrl, content);
+
+
+            //var response = await httpClient.PostAsJsonAsync(apiUrl, data);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.GetAsync(apiUrl);
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    var clients = JsonConvert.DeserializeObject<List<ClientGetDto>>(content);
-                    ViewBag.Clients = clients;
-                    return View();
-                }
-                else
-                {
-                    return View("Error");
-                }
+                return RedirectToAction("GetClients");
             }
+            return View("Error");
         }
     }
 }
