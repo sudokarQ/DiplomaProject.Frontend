@@ -2,7 +2,7 @@
 
 namespace DIplomaProject.Frontend.Models.Client
 {
-    public class ClientPutDto
+    public class ClientPutDto : IdDto
     {
         [Required]
         public Guid Id { get; set; }

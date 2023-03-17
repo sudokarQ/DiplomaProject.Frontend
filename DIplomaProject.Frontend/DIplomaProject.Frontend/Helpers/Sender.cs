@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DIplomaProject.Frontend.Models;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 using System.Web;
@@ -72,6 +73,28 @@ namespace DIplomaProject.Frontend.Helpers
             var content = new StringContent(serializedObject, Encoding.UTF8, "application/json");
 
             using var response = await client.PostAsync(builder.ToString(), content);
+
+            response.EnsureSuccessStatusCode();
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> DeleteAsync(string endpoint, IdDto dto)
+        {
+            var builder = new UriBuilder($"{_baseUrl}{endpoint}");
+
+            using var client = new HttpClient();
+
+            client.Timeout = TimeSpan.FromMinutes(10);
+
+            var serializedObject = await SerializeObjectAsync(dto);
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, builder.ToString())
+            {
+                Content = new StringContent(serializedObject, Encoding.UTF8, "application/json")
+            };
+
+            using var response = await client.SendAsync(request);
 
             response.EnsureSuccessStatusCode();
 

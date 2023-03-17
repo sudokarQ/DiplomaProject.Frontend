@@ -1,4 +1,5 @@
 ﻿using DIplomaProject.Frontend.Helpers;
+using DIplomaProject.Frontend.Models;
 using DIplomaProject.Frontend.Models.Client;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;  
@@ -39,27 +40,15 @@ namespace DIplomaProject.Frontend.Controllers
             return RedirectToAction("GetClients");
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> Create(ClientPostDto client)
-        //{
-        //    var apiUrl = "https://localhost:7161/CreateClient";
+        [HttpPost]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var dto = new IdDto { Id = id };
+            var sender = new Sender();
 
-        //    using var httpClient = new HttpClient();
+            await sender.DeleteAsync("DeleteClient", dto);
 
-        //    var data = JsonConvert.SerializeObject(client);
-
-        //    var content = new StringContent(data, Encoding.UTF8, "application/json");
-        //    //var response = httpClient.PostAsJsonAsync(apiUrl, content).Result.Content.ReadAsStringAsync();
-
-        //    var response = await httpClient.PostAsync(apiUrl, content);
-
-
-        //    //var response = await httpClient.PostAsJsonAsync(apiUrl, data);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        return RedirectToAction("GetClients");
-        //    }
-        //    return View("Error");
-        //}
+            return RedirectToAction("GetClients");
+        }
     }
 }

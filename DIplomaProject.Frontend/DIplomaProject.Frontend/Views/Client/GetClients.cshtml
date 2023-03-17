@@ -26,6 +26,11 @@
                 <td>@client.Email</td>
                 <td>@client.Adress</td>
                 <td>@client.CompanyName</td>
+                <td>
+                    <form method="post" asp-action="Delete" asp-route-id="@client.Id">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
