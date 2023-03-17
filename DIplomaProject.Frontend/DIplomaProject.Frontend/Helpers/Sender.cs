@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text;
 using System.Web;
 
 namespace DIplomaProject.Frontend.Helpers
@@ -56,6 +57,25 @@ namespace DIplomaProject.Frontend.Helpers
             sW.Stop();
 
             return items;
+        }
+
+        public async Task<HttpResponseMessage> PostAsync<T>(string endpoint, T obj)
+        {
+            var builder = new UriBuilder($"{_baseUrl}{endpoint}");
+
+            using var client = new HttpClient();
+
+            client.Timeout = TimeSpan.FromMinutes(10);
+
+            var serializedObject = await SerializeObjectAsync(obj);
+
+            var content = new StringContent(serializedObject, Encoding.UTF8, "application/json");
+
+            using var response = await client.PostAsync(builder.ToString(), content);
+
+            response.EnsureSuccessStatusCode();
+
+            return response;
         }
 
         private static async Task<List<T>> DeserializeObjectAsync<T>(string json)

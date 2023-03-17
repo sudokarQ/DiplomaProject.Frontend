@@ -32,24 +32,34 @@ namespace DIplomaProject.Frontend.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ClientPostDto client)
         {
-            var apiUrl = "https://localhost:7161/CreateClient";
+            var sender = new Sender();
 
-            using var httpClient = new HttpClient();
+            await sender.PostAsync("CreateClient", client);
 
-            var data = JsonConvert.SerializeObject(client);
-
-            var content = new StringContent(data, Encoding.UTF8, "application/json");
-            //var response = httpClient.PostAsJsonAsync(apiUrl, content).Result.Content.ReadAsStringAsync();
-
-            var response = await httpClient.PostAsync(apiUrl, content);
-
-
-            //var response = await httpClient.PostAsJsonAsync(apiUrl, data);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("GetClients");
-            }
-            return View("Error");
+            return RedirectToAction("GetClients");
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult> Create(ClientPostDto client)
+        //{
+        //    var apiUrl = "https://localhost:7161/CreateClient";
+
+        //    using var httpClient = new HttpClient();
+
+        //    var data = JsonConvert.SerializeObject(client);
+
+        //    var content = new StringContent(data, Encoding.UTF8, "application/json");
+        //    //var response = httpClient.PostAsJsonAsync(apiUrl, content).Result.Content.ReadAsStringAsync();
+
+        //    var response = await httpClient.PostAsync(apiUrl, content);
+
+
+        //    //var response = await httpClient.PostAsJsonAsync(apiUrl, data);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("GetClients");
+        //    }
+        //    return View("Error");
+        //}
     }
 }
