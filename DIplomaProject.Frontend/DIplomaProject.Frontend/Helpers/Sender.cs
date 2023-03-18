@@ -42,7 +42,7 @@ namespace DIplomaProject.Frontend.Helpers
                 json = await response.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException ex)
-                {
+            {
                 var strJson = await response.Content.ReadAsStringAsync();
 
             }
