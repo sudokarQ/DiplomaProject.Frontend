@@ -25,6 +25,37 @@ namespace DIplomaProject.Frontend.Controllers
             return View();
         }
 
+        public async Task<IActionResult> GetClientsByName(string query)
+        {
+            var sender = new Sender();
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                var clients = await sender.GetAsync<ClientSearchGetDto>($"GetClientsByName?name={query}");
+                ViewBag.Clients = clients;
+            }
+
+            ViewBag.Query = query;
+
+            return View();
+        }
+
+        public async Task<IActionResult> FindById(string id)
+        {
+            var sender = new Sender();
+
+            if (Guid.TryParse(id, out var guid))
+            {
+                var dto = new IdDto { Id = guid };            
+                var clients = await sender.GetAsync<ClientGetDto>($"FindClient?id={id}");
+                ViewBag.FindById = clients;
+                return View();
+            }
+
+
+            return View("Error");
+        }
+
         public ActionResult Create()
         {
             return View();

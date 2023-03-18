@@ -1,20 +1,15 @@
 ﻿@using DIplomaProject.Frontend.Models.Client
 @model List<ClientGetDto>
 
+<div>
+    <form method="get" asp-action="Create">
+        <button type="submit">Create</button>
+    </form>
+</div>
 <form method="get" asp-action="GetClientsByName">
     <label for="query">Search Query:</label>
     <input type="text" id="query" name="query" value="@ViewBag.Query" />
     <button type="submit">Search</button>
-</form>
-
-<form method="get" asp-action="FindById">
-    <label for="id">Id:</label>
-    <input type="text" id="id" name="id" value="@ViewBag.FindById" />
-    <button type="submit">Search</button>
-</form>
-
-<form method="get" asp-action="Create">
-    <button type="submit">Create</button>
 </form>
 
 <table>
@@ -23,11 +18,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Surname</th>
-            <th>Birthday</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Adress</th>
-            <th>Company</th>
         </tr>
     </thead>
     <tbody>
@@ -37,11 +27,6 @@
                 <td>@client.Id</td>
                 <td>@client.Name</td>
                 <td>@client.Surname</td>
-                <td>@client.BirthdayDate</td>
-                <td>@client.PhoneNumber</td>
-                <td>@client.Email</td>
-                <td>@client.Adress</td>
-                <td>@client.CompanyName</td>
                 <td>
                     <form method="post" asp-action="Delete" asp-route-id="@client.Id">
                         <button type="submit">Delete</button>

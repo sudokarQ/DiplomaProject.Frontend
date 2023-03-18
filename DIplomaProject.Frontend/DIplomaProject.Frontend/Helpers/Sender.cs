@@ -42,7 +42,7 @@ namespace DIplomaProject.Frontend.Helpers
                 json = await response.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException ex)
-            {
+                {
                 var strJson = await response.Content.ReadAsStringAsync();
 
             }
@@ -114,6 +114,25 @@ namespace DIplomaProject.Frontend.Helpers
             var content = new StringContent(serializedObject, Encoding.UTF8, "application/json");
 
             using var response = await client.PutAsync(builder.ToString(), content);
+
+            response.EnsureSuccessStatusCode();
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> FindByIdAsync(string endpoint, IdDto obj)
+        {
+            var builder = new UriBuilder($"{_baseUrl}{endpoint}");
+
+            using var client = new HttpClient();
+
+            client.Timeout = TimeSpan.FromMinutes(10);
+
+            var serializedObject = await SerializeObjectAsync(obj);
+
+            var content = new StringContent(serializedObject, Encoding.UTF8, "application/json");
+
+            using var response = await client.GetAsync(builder.ToString());
 
             response.EnsureSuccessStatusCode();
 
