@@ -17,43 +17,55 @@
     <button type="submit">Create</button>
 </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Birthday</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Adress</th>
-            <th>Company</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var client in ViewBag.FindById)
+@{
+    if (ViewBag.FindById is not null)
+    {
+        foreach (var client in ViewBag.FindById)
         {
-            <tr>
-                <td>@client.Id</td>
-                <td>@client.Name</td>
-                <td>@client.Surname</td>
-                <td>@client.BirthdayDate</td>
-                <td>@client.PhoneNumber</td>
-                <td>@client.Email</td>
-                <td>@client.Adress</td>
-                <td>@client.CompanyName</td>
-                <td>
-                    <form method="post" asp-action="Delete" asp-route-id="@client.Id">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" asp-action="Update" asp-route-id="@client.Id">
-                        <button type="submit">Edit</button>
-                    </form>
-                </td>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Birthday</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Adress</th>
+                        <th>Company</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@client.Id</td>
+                        <td>@client.Name</td>
+                        <td>@client.Surname</td>
+                        <td>@client.BirthdayDate</td>
+                        <td>@client.PhoneNumber</td>
+                        <td>@client.Email</td>
+                        <td>@client.Adress</td>
+                        <td>@client.CompanyName</td>
+                        <td>
+                            <form method="post" asp-action="Delete" asp-route-id="@client.Id">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" asp-action="Update" asp-route-id="@client.Id">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
 
-            </tr>
+                    </tr>
+               
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
+    }
+    else
+    {
+        <div>
+            <h3>Нет результата или неверно введен Id</h3>
+        </div>
+    }
+}

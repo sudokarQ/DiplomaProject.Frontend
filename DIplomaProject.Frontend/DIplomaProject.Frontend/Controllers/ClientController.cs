@@ -53,7 +53,7 @@ namespace DIplomaProject.Frontend.Controllers
             }
 
 
-            return View("Error");
+            return View();
         }
 
         public ActionResult Create()
