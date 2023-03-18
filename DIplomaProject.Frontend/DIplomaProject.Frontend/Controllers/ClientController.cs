@@ -50,5 +50,23 @@ namespace DIplomaProject.Frontend.Controllers
 
             return RedirectToAction("GetClients");
         }
+
+
+        public ActionResult Update(Guid id)
+        {
+            ViewBag.TempId = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Update(ClientPutDto dto)
+        {
+            var sender = new Sender();
+
+            await sender.UpdateAsync("UpdateClient", dto);
+
+            return RedirectToAction("GetClients");
+        }
+
     }
 }

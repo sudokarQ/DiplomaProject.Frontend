@@ -31,6 +31,12 @@
                         <button type="submit">Delete</button>
                     </form>
                 </td>
+                <td>
+                    <form method="get" asp-action="Update" asp-route-id="@client.Id">
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+
             </tr>
         }
     </tbody>
