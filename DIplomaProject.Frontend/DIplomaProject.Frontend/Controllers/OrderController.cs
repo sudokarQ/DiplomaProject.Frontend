@@ -1,39 +1,39 @@
 ﻿using DIplomaProject.Frontend.Helpers;
 using DIplomaProject.Frontend.Models.Dto;
-using DIplomaProject.Frontend.Models.Dto.Client;
+using DIplomaProject.Frontend.Models.Dto.Order;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DIplomaProject.Frontend.Controllers
 {
-    public class ClientController : Controller
+    public class OrderController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> GetClients()
+        public async Task<IActionResult> GetOrders()
         {
             var sender = new Sender();
 
-            var clients = await sender.GetAsync<ClientGetDto>("GetAllClients");
+            var orders = await sender.GetAsync<OrderGetDto>("GetAllOrders");
 
-            ViewBag.Clients = clients;
+            ViewBag.Orders = orders;
 
             return View();
         }
 
-        public async Task<IActionResult> GetClientsByName(string query)
+        public async Task<IActionResult> FindByClientId(string id)
         {
             var sender = new Sender();
 
-            if (!String.IsNullOrEmpty(query))
+            if (Guid.TryParse(id, out var guid))
             {
-                var clients = await sender.GetAsync<ClientSearchGetDto>($"GetClientsByName?name={query}");
-                ViewBag.Clients = clients;
+                var dto = new IdDto { Id = guid };
+                var orders = await sender.GetAsync<OrderSearchGetDto>($"FindOrderByClientId?id={id}");
+                ViewBag.FindByClientId = orders;
+                return View("GetOrdersByClientId");
             }
-
-            ViewBag.Query = query;
 
             return View();
         }
@@ -44,9 +44,9 @@ namespace DIplomaProject.Frontend.Controllers
 
             if (Guid.TryParse(id, out var guid))
             {
-                var dto = new IdDto { Id = guid };            
-                var clients = await sender.GetAsync<ClientGetDto>($"FindClient?id={id}");
-                ViewBag.FindById = clients;
+                var dto = new IdDto { Id = guid };
+                var orders = await sender.GetAsync<OrderGetDto>($"FindOrder?id={id}");
+                ViewBag.FindById = orders;
                 return View();
             }
 
@@ -60,13 +60,13 @@ namespace DIplomaProject.Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ClientPostDto client)
+        public async Task<ActionResult> Create(OrderPostDto order)
         {
             var sender = new Sender();
 
-            await sender.PostAsync("CreateClient", client);
+            await sender.PostAsync("CreateOrder", order);
 
-            return RedirectToAction("GetClients");
+            return RedirectToAction("GetOrders");
         }
 
         [HttpPost]
@@ -75,9 +75,9 @@ namespace DIplomaProject.Frontend.Controllers
             var dto = new IdDto { Id = id };
             var sender = new Sender();
 
-            await sender.DeleteAsync("DeleteClient", dto);
+            await sender.DeleteAsync("DeleteOrder", dto);
 
-            return RedirectToAction("GetClients");
+            return RedirectToAction("GetOrders");
         }
 
 
@@ -88,14 +88,13 @@ namespace DIplomaProject.Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Update(ClientPutDto dto)
+        public async Task<ActionResult> Update(OrderPutDto dto)
         {
             var sender = new Sender();
 
-            await sender.UpdateAsync("UpdateClient", dto);
+            await sender.UpdateAsync("UpdateOrder", dto);
 
-            return RedirectToAction("GetClients");
+            return RedirectToAction("GetOrders");
         }
-
     }
 }

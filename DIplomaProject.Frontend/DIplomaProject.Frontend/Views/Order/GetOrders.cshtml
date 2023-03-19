@@ -1,0 +1,60 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.Order
+@model List<OrderGetDto>
+
+<form method="get" asp-action="FindByClientId">
+    <label for="id">Client Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="FindById">
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="Create">
+    <button type="submit">Create</button>
+</form>
+
+@if (ViewBag.Orders is not null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DateTime</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>TotalPrice</th>
+                <th>ClientId</th>
+                <th>ServiceId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in ViewBag.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.DateTime</td>
+                    <td>@order.Status</td>
+                    <td>@order.Type</td>
+                    <td>@order.TotaPrice</td>
+                    <td>@order.ClientId</td>
+                    <td>@order.ServiceId</td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@order.Id">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get" asp-action="Update" asp-route-id="@order.Id">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}

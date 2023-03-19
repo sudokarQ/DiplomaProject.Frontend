@@ -1,4 +1,4 @@
-﻿using DIplomaProject.Frontend.Models;
+﻿using DIplomaProject.Frontend.Models.Dto;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;

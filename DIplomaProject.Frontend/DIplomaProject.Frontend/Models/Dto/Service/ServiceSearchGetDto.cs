@@ -1,0 +1,11 @@
+﻿namespace DIplomaProject.Frontend.Models.Dto.Service
+{
+    public class ServiceSearchGetDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string TypeService { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+    }
+}

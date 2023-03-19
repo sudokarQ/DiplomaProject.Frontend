@@ -1,0 +1,58 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.Order
+@model List<OrderGetDto>
+
+<form method="get" asp-action="FindByClientId">
+    <label for="id">Client Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="FindById">
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="Create">
+    <button type="submit">Create</button>
+</form>
+
+@{
+    if (ViewBag.FindByClientId is not null)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Client Id</th>
+                    <th>DateTime</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in ViewBag.FindByClientId)
+                {
+                    <tr>
+                        <td>@order.ClientId</td>
+                        <td>@order.DateTime</td>
+                        <td>
+                            <form method="post" asp-action="Delete" asp-route-id="@order.Id">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" asp-action="Update" asp-route-id="@order.Id">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>
+            <h3>Нет результата или неверно введен Id</h3>
+        </div>
+    }
+}
