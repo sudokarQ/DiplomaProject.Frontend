@@ -17,21 +17,21 @@
     <button type="submit">Create</button>
 </form>
 
-@if (ViewBag.Orders is not null)
-{
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>DateTime</th>
-                <th>Status</th>
-                <th>Type</th>
-                <th>TotalPrice</th>
-                <th>ClientId</th>
-                <th>ServiceId</th>
-            </tr>
-        </thead>
-        <tbody>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DateTime</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>TotalPrice</th>
+            <th>ClientId</th>
+            <th>ServiceId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.Orders is not null)
+        {
             @foreach (var order in ViewBag.Orders)
             {
                 <tr>
@@ -55,6 +55,7 @@
 
                 </tr>
             }
-        </tbody>
-    </table>
-}
+        }
+    </tbody>
+</table>
+

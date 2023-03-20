@@ -1,12 +1,12 @@
-﻿@using DIplomaProject.Frontend.Models.Dto.Client
-@model List<ClientGetDto>
+﻿@using DIplomaProject.Frontend.Models.Dto.Promotion
+@model List<PromotionGetDto>
 
 <div>
     <form method="get" asp-action="Create">
         <button type="submit">Create</button>
     </form>
 </div>
-<form method="get" asp-action="GetClientsByName">
+<form method="get" asp-action="GetPromotionsByName">
     <label for="query">Search Query:</label>
     <input type="text" id="query" name="query" value="@ViewBag.Query" required />
     <button type="submit">Search</button>
@@ -20,27 +20,25 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th>Surname</th>
+            <th>ServiceId</th>
         </tr>
     </thead>
     <tbody>
-        @if (ViewBag.Clients is not null)
+        @if (ViewBag.Promotions is not null) 
         {
-            foreach (var client in ViewBag.Clients)
+            foreach (var promotion in ViewBag.Promotions)
             {
                 <tr>
-                    <td>@client.Id</td>
-                    <td>@client.Name</td>
-                    <td>@client.Surname</td>
+                    <td>@promotion.Name</td>
+                    <td>@promotion.ServiceId</td>
                     <td>
-                        <form method="post" asp-action="Delete" asp-route-id="@client.Id">
+                        <form method="post" asp-action="Delete" asp-route-id="@promotion.Id">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
                     <td>
-                        <form method="get" asp-action="Update" asp-route-id="@client.Id">
+                        <form method="get" asp-action="Update" asp-route-id="@promotion.Id">
                             <button type="submit">Edit</button>
                         </form>
                     </td>

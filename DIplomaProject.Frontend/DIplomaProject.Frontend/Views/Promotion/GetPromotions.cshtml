@@ -1,0 +1,67 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.Promotion
+@model List<PromotionGetDto>
+
+<form method="get" asp-action="GetPromotionsByName">
+    <label for="query">Search Query:</label>
+    <input type="text" id="query" name="query" value="@ViewBag.Query" />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="FindById">
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="Create">
+    <button type="submit">Create</button>
+</form>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Discount Percent</th>
+            <th>IsCorporate</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>CompanyPercent</th>
+            <th>ServiceId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.Promotions is not null)
+            {
+                foreach (var promotion in ViewBag.Promotions)
+                {
+                    <tr>
+                        <td>@promotion.Id</td>
+                        <td>@promotion.Name</td>
+                        <td>@promotion.Description</td>
+                        <td>@promotion.DiscountPercent</td>
+                        <td>@promotion.BeginDate</td>
+                        <td>@promotion.EndDate</td>
+                        <td>@promotion.IsCorporate</td>
+                        <td>@promotion.CompanyPercent</td>
+                        <td>@promotion.ServiceId</td>
+                        <td>
+                            <form method="post" asp-action="Delete" asp-route-id="@promotion.Id">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" asp-action="Update" asp-route-id="@promotion.Id">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
