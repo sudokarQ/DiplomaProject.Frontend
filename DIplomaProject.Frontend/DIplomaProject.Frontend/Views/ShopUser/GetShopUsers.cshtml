@@ -1,0 +1,40 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.ShopUser
+@model List<ShopUserGetDto>
+
+<form method="get" asp-action="FindById">
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="Create">
+    <button type="submit">Create</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ShopId</th>
+            <th>UserId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.ShopUsers is not null)
+        {
+            foreach (var shopUser in ViewBag.ShopUsers)
+            {
+                <tr>
+                    <td>@shopUser.Id</td>
+                    <td>@shopUser.ShopId</td>
+                    <td>@shopUser.UserId</td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@shopUser.Id">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
