@@ -1,0 +1,71 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.Service
+@model List<ServiceSearchGetDto>
+
+<form method="get" asp-action="FindByShopId">
+    <label for="id">Shop Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindByShopId" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="FindById">
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id" value="@ViewBag.FindById" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="GetServicesByName">
+    <label for="query">Name:</label>
+    <input type="text" id="query" name="query" value="@ViewBag.Query" required />
+    <button type="submit">Search</button>
+</form>
+
+<form method="get" asp-action="Create">
+    <button type="submit">Create</button>
+</form>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>TypeService</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+        if (ViewBag.FindByShopId is not null)
+        {
+            foreach (var service in ViewBag.FindByShopId)
+            {
+                <tr>
+                    <td>@service.Id</td>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>@service.TypeService</td>
+                    <td>@service.Price</td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-id="@service.Id">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get" asp-action="Update" asp-route-id="@service.Id">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        }
+            else
+            {
+                <div>
+                    <h3>Нет результата или неверно введен Id</h3>
+                </div>
+            }
+    }
+    </tbody>
+</table>

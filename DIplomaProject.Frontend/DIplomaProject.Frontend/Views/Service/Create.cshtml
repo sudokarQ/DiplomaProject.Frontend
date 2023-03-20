@@ -1,0 +1,35 @@
+﻿@using DIplomaProject.Frontend.Models.Dto.Service
+@using DIplomaProject.Frontend.Models.Enums
+@model ServicePostDto
+
+<h2>Create Service</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <input asp-for="Description" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeService" class="control-label">TypeService</label>
+        <input asp-for="TypeService" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Price</label>
+        <input asp-for="Price" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="ShopId" class="control-label">ShopId</label>
+        <input asp-for="ShopId" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
