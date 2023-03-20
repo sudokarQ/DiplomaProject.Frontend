@@ -1,12 +1,6 @@
 ﻿@using DIplomaProject.Frontend.Models.Dto.ShopUser
 @model List<ShopUserGetDto>
 
-<form method="get" asp-action="FindById">
-    <label for="id">Id:</label>
-    <input type="text" id="id" name="id" value="@ViewBag.FindById" />
-    <button type="submit">Search</button>
-</form>
-
 <form method="get" asp-action="Create">
     <button type="submit">Create</button>
 </form>

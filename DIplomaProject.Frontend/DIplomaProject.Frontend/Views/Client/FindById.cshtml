@@ -2,14 +2,8 @@
 @model List<ClientGetDto>
 
 <form method="get" asp-action="GetClientsByName">
-    <label for="query">Search Query:</label>
+    <label for="query">Name:</label>
     <input type="text" id="query" name="query" value="@ViewBag.Query" />
-    <button type="submit">Search</button>
-</form>
-
-<form method="get" asp-action="FindById">
-    <label for="id">Id:</label>
-    <input type="text" id="id" name="id" value="@ViewBag.FindById" />
     <button type="submit">Search</button>
 </form>
 
